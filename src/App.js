@@ -1,12 +1,25 @@
 import React, { Component } from 'react';
 import './App.css';
-import MapContainer from './Components/MapContainer'
+import MapContainer from './Components/MapContainer';
 
 class App extends Component {
+
+  state = {
+    places: [
+      { 
+        title: "Comedy Store",
+        location: {
+          lat: 34.095169, 
+          lng: -118.373918
+        }
+      }
+    ]
+  };
+  
   render() {
     return (
       <div className="App">
-        <MapContainer></MapContainer>
+        <MapContainer places={this.state.places}/>
       </div>
     );
   }

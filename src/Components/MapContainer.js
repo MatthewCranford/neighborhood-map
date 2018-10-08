@@ -1,32 +1,22 @@
 import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 
-export class MapContainer extends Component {
+class MapContainer extends Component {
 
   state = {
     showingInfoWindow: false,
     activeMarker: {},
-    selectedPlace: {},
-    places: [
-      { 
-        title: "Comedy Store",
-        location: {
-          lat: 34.095169, 
-          lng: -118.373918
-        }
-      }
-    ]
-    
+    selectedPlace: {}
   };
 
-  // onMarkerClick = (props, marker, e) => {
-  //   console.log('Props: ',props)
-  //   this.setState({
-  //     selectedPlace: props,
-  //     activeMarker: marker,
-  //     showingInfoWindow: true
-  //   });
-  // }
+  onMarkerClick = (props, marker) => {
+    console.log('Props: ',props)
+    this.setState({
+      selectedPlace: props,
+      activeMarker: marker,
+      showingInfoWindow: true
+    });
+  }
 
   render() {
     const style = {
@@ -34,31 +24,19 @@ export class MapContainer extends Component {
       height: '100%'
     };
 
-
-
     return (
       <Map 
         google={this.props.google} 
         zoom={14} 
         style={style} 
-        initialCenter={this.state.places[0].location}
-        
-      >
-        {this.state.places.map((place, index) => 
+        initialCenter={this.props.places[0].location}>
+        {this.props.places.map((place, index) => 
           <Marker 
-            position={place.location}
-            name={'Current location'}
+            position={{lat: place.location.lat, lng: place.location.lng}}
             key={index}
             onClick={this.onMarkerClick}
           />
-        )};
-        <InfoWindow
-          marker={this.state.activeMarker}
-          visible={this.state.showingInfoWindow}>
-            <div>
-              <h1>{this.state.selectedPlace.name}</h1>
-            </div>
-        </InfoWindow>
+        )}
       </Map>
     )
   }
