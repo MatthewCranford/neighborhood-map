@@ -10,11 +10,10 @@ class MapContainer extends Component {
   };
 
   onMarkerClick = (props, marker) => {
-    console.log('Props: ',props)
     this.setState({
-      selectedPlace: props,
+      showingInfoWindow: true,
       activeMarker: marker,
-      showingInfoWindow: true
+      selectedPlace: props
     });
   }
 
@@ -29,14 +28,24 @@ class MapContainer extends Component {
         google={this.props.google} 
         zoom={14} 
         style={style} 
-        initialCenter={this.props.places[0].location}>
+        initialCenter={this.props.places[0].location}
+      >
         {this.props.places.map((place, index) => 
           <Marker 
             position={{lat: place.location.lat, lng: place.location.lng}}
             key={index}
             onClick={this.onMarkerClick}
+            name={place.name}
           />
         )}
+        <InfoWindow
+          marker={this.state.activeMarker}
+          visible={this.state.showingInfoWindow}
+        >
+          <div>
+            <h1>{this.state.selectedPlace.name}</h1>
+          </div>
+        </InfoWindow>
       </Map>
     )
   }
