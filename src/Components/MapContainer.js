@@ -46,10 +46,12 @@ class MapContainer extends Component {
       >
         {this.props.places.map((place, index) => 
           <Marker 
-            position={{lat: place.location.lat, lng: place.location.lng}}
             key={index}
-            onClick={this.onMarkerClick}
             name={place.name}
+            title={place.name}
+            position={{lat: place.location.lat, lng: place.location.lng}}
+            onClick={this.onMarkerClick}
+            
           />
         )}
         <InfoWindow
