@@ -34,6 +34,13 @@ class App extends Component {
           lng: -118.348995
         }
       },
+      { 
+        name: "The Second City Hollywood",
+        location: {
+          lat: 34.101312, 
+          lng: -118.333004
+        }
+      }
     ]
   };
   
