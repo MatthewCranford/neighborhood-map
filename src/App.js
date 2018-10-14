@@ -48,17 +48,16 @@ class App extends Component {
   render() {
     const style  = {
       width: '100%',
-      height: '100%',
-      position: 'absolute'
+      position: 'absolute',
+      background: 'white'
     };
 
     return (
       <div className="App">
-        <div>
-          {/* <MapNav style={style}/> */}
-          <MapContainer places={this.state.places}/>
+        <MapContainer places={this.state.places}/>  
+        <div style={style}>
+          <MapNav/>
         </div>
-        
       </div>
     );
   }
