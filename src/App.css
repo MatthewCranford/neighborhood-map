@@ -3,8 +3,38 @@
 }
 
 .map-nav {
+  position: absolute;
+  background: white;
+  width: 100%;
   display: flex;
   padding: .8rem;
+}
+
+.map-sidebar {
+  position: absolute;
+  margin-top: 75px;
+  width: 250px;
+  height: 100%;
+  background-color: white;
+  border-top: 1px solid;
+}
+
+.sidebar-input {
+  margin-top: 1rem;
+}
+
+.map-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.map-sidebar li {
+  padding: 1rem;
+}
+
+.map-sidebar li:hover {
+  background-color: black;
+  color: white;
 }
 
 /* Hamburger from W3 schools */
@@ -25,3 +55,5 @@
 .nav-title {
   margin: auto;
 }
+
+

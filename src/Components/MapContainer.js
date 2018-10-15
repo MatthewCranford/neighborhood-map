@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-import MapNav from './MapNav';
-
 
 class MapContainer extends Component {
-
   state = {
     bounds: {},
     showingInfoWindow: false,
@@ -75,7 +72,7 @@ class MapContainer extends Component {
         initialCenter={this.props.places[0].location}
         bounds={this.state.bounds}
       >
-        <MapNav style={{position: 'absolute', zIndex:1000}}/>
+    
     
         {this.props.places.map((place, index) => 
           <Marker 
