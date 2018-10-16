@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import MapContainer from './components/MapContainer';
-import MapNav from './components/MapNav';
 
 class App extends Component {
   state = {
@@ -48,7 +47,6 @@ class App extends Component {
     return (
       <div className="App">
         <MapContainer places={this.state.places}/>  
-        <MapNav places={this.state.places}/>
       </div>
     );
   }

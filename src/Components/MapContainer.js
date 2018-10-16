@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import MapNav from"./MapNav";
 
 class MapContainer extends Component {
   state = {
@@ -65,34 +66,37 @@ class MapContainer extends Component {
     };
 
     return (
-      <Map 
-        google={this.props.google} 
-        zoom={14} 
-        style={style} 
-        initialCenter={this.props.places[0].location}
-        bounds={this.state.bounds}
-      >
-        {this.props.places.map((place, index) => 
-          <Marker 
-            key={index}
-            name={place.name}
-            title={place.name}
-            position={{lat: place.location.lat, lng: place.location.lng}}
-            onClick={this.onMarkerClick}
-            
-          />
-        )}
-        <InfoWindow
-          marker={this.state.activeMarker}
-          visible={this.state.showingInfoWindow}
+      <div>
+        <MapNav places={this.props.places}></MapNav>
+        <Map 
+          google={this.props.google} 
+          zoom={14} 
+          style={style} 
+          initialCenter={this.props.places[0].location}
+          bounds={this.state.bounds}
         >
-          <div>
-            <h1>{this.state.selectedPlace.name}</h1>
-            <img src={this.state.photo} alt={this.state.selectedPlace.name}/>
-            <h3>Likes: {this.state.likes}</h3>
-          </div>
-        </InfoWindow>
-      </Map>
+          {this.props.places.map((place, index) => 
+            <Marker 
+              key={index}
+              name={place.name}
+              title={place.name}
+              position={{lat: place.location.lat, lng: place.location.lng}}
+              onClick={this.onMarkerClick}
+              
+            />
+          )}
+          <InfoWindow
+            marker={this.state.activeMarker}
+            visible={this.state.showingInfoWindow}
+          >
+            <div>
+              <h1>{this.state.selectedPlace.name}</h1>
+              <img src={this.state.photo} alt={this.state.selectedPlace.name}/>
+              <h3>Likes: {this.state.likes}</h3>
+            </div>
+          </InfoWindow>
+        </Map>
+      </div>
     )
   }
 }
