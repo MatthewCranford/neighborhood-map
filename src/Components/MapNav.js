@@ -22,7 +22,6 @@ class MapNav extends Component {
           </ul>
         </div>
       </div>
-      
     )
   }
 }

@@ -4,7 +4,6 @@ import MapContainer from './components/MapContainer';
 import MapNav from './components/MapNav';
 
 class App extends Component {
-
   state = {
     places: [
       { 
@@ -46,8 +45,6 @@ class App extends Component {
   };
   
   render() {
-
-
     return (
       <div className="App">
         <MapContainer places={this.state.places}/>  

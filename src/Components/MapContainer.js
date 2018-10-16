@@ -72,8 +72,6 @@ class MapContainer extends Component {
         initialCenter={this.props.places[0].location}
         bounds={this.state.bounds}
       >
-    
-    
         {this.props.places.map((place, index) => 
           <Marker 
             key={index}
