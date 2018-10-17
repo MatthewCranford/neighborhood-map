@@ -9,11 +9,17 @@ class MapContainer extends Component {
     activeMarker: {},
     selectedPlace: {},
     likes: '',
-    img: ''
+    img: '',
+    currentPlaces: []
   };
 
   componentDidMount() {
     this.setBounds();
+    this.updateCurrentPlaces(this.props.places);
+  }
+
+  updateCurrentPlaces = (places) => {
+    this.setState({ currentPlaces: places });
   }
 
   setBounds = () => {
@@ -28,12 +34,10 @@ class MapContainer extends Component {
     const size = 150
     this.getFourSquareVenueID(lat, lng, name).then((venueId) => {
       this.getFourSquareVenueInfo(venueId).then((venueInfo) => {
-        console.log(venueInfo);
         this.setState({
           likes: venueInfo.likes.count,
           photo: venueInfo.bestPhoto.prefix + size + venueInfo.bestPhoto.suffix
         });
-        console.log(this.state.photo);
       });
     });
   }
@@ -67,7 +71,7 @@ class MapContainer extends Component {
 
     return (
       <div>
-        <MapNav places={this.props.places}></MapNav>
+        <MapNav places={this.props.places} onChange={this.updateCurrentPlaces}></MapNav>
         <Map 
           google={this.props.google} 
           zoom={14} 
@@ -75,7 +79,7 @@ class MapContainer extends Component {
           initialCenter={this.props.places[0].location}
           bounds={this.state.bounds}
         >
-          {this.props.places.map((place, index) => 
+          {this.state.currentPlaces.map((place, index) => 
             <Marker 
               key={index}
               name={place.name}

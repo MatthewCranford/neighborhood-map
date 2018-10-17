@@ -26,9 +26,11 @@ class MapNav extends Component {
       this.setState({ currentPlaces: 
         this.props.places.filter((place) => place.name.toLowerCase().includes(query.trim()))
       });
+      this.props.onChange(this.state.currentPlaces);
     }
     else {
-      this.setState({ currentPlaces: this.props.places})
+      this.setState({ currentPlaces: this.props.places});
+      this.props.onChange(this.state.currentPlaces);
     }
   }
 
