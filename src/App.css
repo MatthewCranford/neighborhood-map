@@ -2,36 +2,33 @@
   text-align: center;
 }
 
-body, html {
+/* body, html {
   max-width: 100%;
   overflow: hidden;
-}
+} */
 
 .map-nav-container {
   overflow: hidden;
-}
-
-.map-nav {
   position: absolute;
-  background: white;
-  display: flex;
-  padding: .8rem;
   z-index: 1;
+  height: 100%;
   width: 100%;
 }
 
-.map-nav h1 {
-  min-width: 100%
+.map-nav {
+  position: relative;
+  background: white;
+  display: flex;
+  padding: .8rem;
+  width: 100%;
 }
 
 .map-sidebar {
-  position: absolute;
-  margin-top: 75px;
+  position: relative;
   width: 250px;
   height: 100%;
   background-color: white;
   border-top: 1px solid;
-  z-index: 1;
   transform: translate(-250px);
 }
 
