@@ -23,19 +23,13 @@ class MapNav extends Component {
   updateQuery = (e) => {
     const query = e.target.value
     if (query.length) {
-      this.setState({ currentPlaces: 
-        this.props.places.filter((place) => place.name.toLowerCase().includes(query.trim()))
-      });
-      this.props.onChange(this.state.currentPlaces);
-    }
-    else {
-      this.setState({ currentPlaces: this.props.places});
-      this.props.onChange(this.state.currentPlaces);
+      this.props.onChange(this.props.places.filter((place) => place.name.toLowerCase().includes(query.trim())));
     }
   }
 
   render() {
     return(
+      <div>
         <div className="map-nav-container">
           <nav className="map-nav">
             <div className="hamburger-container" onClick={this.onHamburgerClick}> 
@@ -45,7 +39,8 @@ class MapNav extends Component {
             </div>
             <h1 className="nav-title">Popular Comedy Clubs</h1>
           </nav>
-          <div className="map-sidebar">
+        </div>
+        <div className="map-sidebar">
             <input className="sidebar-input" onChange={this.updateQuery}></input>
             <ul>
               {this.state.currentPlaces.map((place) => {
@@ -53,7 +48,8 @@ class MapNav extends Component {
               })}
             </ul>
           </div>
-        </div>
+      </div>
+        
     )
   }
 }
