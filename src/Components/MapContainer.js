@@ -15,11 +15,18 @@ class MapContainer extends Component {
 
   componentDidMount() {
     this.setBounds();
-    this.updateCurrentPlaces(this.props.places);
+    this.updateCurrentPlaces();
   }
 
-  updateCurrentPlaces = (places) => {
-    this.setState({ currentPlaces: places });
+  updateCurrentPlaces = (query) => {
+    if (query && query.length) {
+      this.setState({ currentPlaces:
+        this.props.places.filter((place) => place.name.toLowerCase().includes(query.toLowerCase()))
+      });
+    }
+    else {
+      this.setState({ currentPlaces: this.props.places });
+    }
   }
 
   setBounds = () => {
@@ -71,7 +78,7 @@ class MapContainer extends Component {
 
     return (
       <div>
-        <MapNav places={this.props.places} onChange={this.updateCurrentPlaces}></MapNav>
+        <MapNav places={this.state.currentPlaces} onChange={this.updateCurrentPlaces}></MapNav>
         <Map 
           google={this.props.google} 
           zoom={14} 

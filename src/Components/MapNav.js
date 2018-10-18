@@ -4,7 +4,6 @@ import '../App.css';
 class MapNav extends Component {
   state = {
     hamburgerActive: false,
-    currentPlaces: [],
   }
 
   onHamburgerClick = () => {
@@ -16,14 +15,6 @@ class MapNav extends Component {
     else {
       sidebar.style.transform = 'translateX(0px)'
       this.setState({ hamburgerActive: true });
-    }
-    this.setState({ currentPlaces: this.props.places })
-  }
-
-  updateQuery = (e) => {
-    const query = e.target.value
-    if (query.length) {
-      this.props.onChange(this.props.places.filter((place) => place.name.toLowerCase().includes(query.trim())));
     }
   }
 
@@ -41,9 +32,9 @@ class MapNav extends Component {
           </nav>
         </div>
         <div className="map-sidebar">
-            <input className="sidebar-input" onChange={this.updateQuery}></input>
+            <input className="sidebar-input" onChange={(e) => this.props.onChange(e.target.value)}></input>
             <ul>
-              {this.state.currentPlaces.map((place) => {
+              {this.props.places.map((place) => {
                 return <li>{place.name}</li>
               })}
             </ul>
