@@ -15,10 +15,14 @@ class MapContainer extends Component {
 
   componentDidMount() {
     this.setBounds();
-    this.updateCurrentPlaces();
+    this.setState({ currentPlaces: this.props.places });
   }
 
-  updateCurrentPlaces = (query) => {
+  updatePlaces = (place) => {
+    this.setState({ currentPlaces: [place] })
+  }
+
+  filterPlaces = (query) => {          
     if (query && query.length) {
       this.setState({ currentPlaces:
         this.props.places.filter((place) => place.name.toLowerCase().includes(query.toLowerCase()))
@@ -62,6 +66,7 @@ class MapContainer extends Component {
   }
 
   onMarkerClick = (props, marker) => {
+    console.log('Props:', props)
     this.getFourSquareData(props.position.lat, props.position.lng, props.title);
     this.setState({
       showingInfoWindow: true,
@@ -78,7 +83,7 @@ class MapContainer extends Component {
 
     return (
       <div>
-        <MapNav places={this.state.currentPlaces} onChange={this.updateCurrentPlaces}></MapNav>
+        <MapNav places={this.state.currentPlaces} onQuery={this.filterPlaces} onSelect={this.updatePlaces}></MapNav>
         <Map 
           google={this.props.google} 
           zoom={14} 

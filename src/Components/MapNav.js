@@ -32,10 +32,10 @@ class MapNav extends Component {
           </nav>
         </div>
         <div className="map-sidebar">
-            <input className="sidebar-input" onChange={(e) => this.props.onChange(e.target.value)}></input>
+            <input className="sidebar-input" onChange={(e) => this.props.onQuery(e.target.value)}></input>
             <ul>
               {this.props.places.map((place) => {
-                return <li>{place.name}</li>
+                return <li onClick={(e) => this.props.onSelect(place)}>{place.name}</li>
               })}
             </ul>
           </div>
