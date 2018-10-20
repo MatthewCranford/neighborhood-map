@@ -5,7 +5,7 @@ import MapNav from"./MapNav";
 class MapContainer extends Component {
   state = {
     bounds: {},
-    showingInfoWindow: false,
+    showingInfoWindow: true,
     activeMarker: {},
     selectedPlace: {},
     likes: '',
@@ -18,8 +18,8 @@ class MapContainer extends Component {
     this.setState({ currentPlaces: this.props.places });
   }
 
-  updatePlaces = (place) => {
-    this.setState({ currentPlaces: [place] })
+  updateActiveMarker = (place) => {
+    this.setState({ activeMarker: place })
   }
 
   filterPlaces = (query) => {          
@@ -66,7 +66,8 @@ class MapContainer extends Component {
   }
 
   onMarkerClick = (props, marker) => {
-    console.log('Props:', props)
+    console.log('Props:', props);
+    console.log('Marker:', marker);
     this.getFourSquareData(props.position.lat, props.position.lng, props.title);
     this.setState({
       showingInfoWindow: true,
@@ -83,7 +84,7 @@ class MapContainer extends Component {
 
     return (
       <div>
-        <MapNav places={this.state.currentPlaces} onQuery={this.filterPlaces} onSelect={this.updatePlaces}></MapNav>
+        <MapNav places={this.state.currentPlaces} onQuery={this.filterPlaces} onSelect={this.updateActiveMarker}></MapNav>
         <Map 
           google={this.props.google} 
           zoom={14} 
