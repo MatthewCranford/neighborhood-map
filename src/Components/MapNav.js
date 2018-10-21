@@ -4,6 +4,7 @@ import '../App.css';
 class MapNav extends Component {
   state = {
     hamburgerActive: false,
+    query: ''
   }
 
   onHamburgerClick = () => {
@@ -35,7 +36,7 @@ class MapNav extends Component {
             <input className="sidebar-input" onChange={(e) => this.props.onQuery(e.target.value)}></input>
             <ul>
               {this.props.places.map((place) => {
-                return <li onClick={(e) => this.props.onSelect(place)}>{place.name}</li>
+                return <li>{place.name}</li>
               })}
             </ul>
           </div>

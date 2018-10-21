@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-import MapNav from"./MapNav";
 
 class MapContainer extends Component {
   state = {
@@ -9,28 +8,11 @@ class MapContainer extends Component {
     activeMarker: {},
     selectedPlace: {},
     likes: '',
-    img: '',
-    currentPlaces: []
+    img: ''
   };
 
   componentDidMount() {
     this.setBounds();
-    this.setState({ currentPlaces: this.props.places });
-  }
-
-  updateActiveMarker = (place) => {
-    this.setState({ activeMarker: place })
-  }
-
-  filterPlaces = (query) => {          
-    if (query && query.length) {
-      this.setState({ currentPlaces:
-        this.props.places.filter((place) => place.name.toLowerCase().includes(query.toLowerCase()))
-      });
-    }
-    else {
-      this.setState({ currentPlaces: this.props.places });
-    }
   }
 
   setBounds = () => {
@@ -38,9 +20,10 @@ class MapContainer extends Component {
     for (let place of this.props.places) {
       bounds.extend(place.location);
     }
-    this.setState({bounds});
+    this.setState({ bounds });
   }
 
+  // FourSquare API get Data functions
   getFourSquareData = (lat, lng, name) => {
     const size = 150
     this.getFourSquareVenueID(lat, lng, name).then((venueId) => {
@@ -84,22 +67,20 @@ class MapContainer extends Component {
 
     return (
       <div>
-        <MapNav places={this.state.currentPlaces} onQuery={this.filterPlaces} onSelect={this.updateActiveMarker}></MapNav>
         <Map 
           google={this.props.google} 
           zoom={14} 
           style={style} 
-          initialCenter={this.props.places[0].location}
+          initialCenter={this.props.centerCoords.location}
           bounds={this.state.bounds}
         >
-          {this.state.currentPlaces.map((place, index) => 
+          {this.props.places.map((place, index) => 
             <Marker 
               key={index}
               name={place.name}
               title={place.name}
               position={{lat: place.location.lat, lng: place.location.lng}}
               onClick={this.onMarkerClick}
-              
             />
           )}
           <InfoWindow
