@@ -57,12 +57,17 @@ class App extends Component {
     console.log(filteredPlaces);
     this.setState({ currentPlaces: filteredPlaces });
   }
+
+  setActiveMarker = (marker) => {
+    console.log(marker);
+    document.querySelector(`[title="${marker}"]`).click();
+  }
   
   render() {
     return (
       <div className="App">
-        <MapNav places={this.state.currentPlaces} onQuery={this.filterPlaces}/>
-        <MapContainer places={this.state.currentPlaces} centerCoords={this.state.places[0].location}/>  
+        <MapNav places={this.state.currentPlaces} onQuery={this.filterPlaces} setActiveMarker={this.setActiveMarker}/>
+        <MapContainer places={this.state.currentPlaces} centerCoords={this.state.places[0].location} activeMarker={this.state.activeMarker} showingInfoWindow={this.state.showingInfoWindow}/>  
       </div>
     );
   }

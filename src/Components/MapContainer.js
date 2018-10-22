@@ -4,11 +4,11 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 class MapContainer extends Component {
   state = {
     bounds: {},
-    showingInfoWindow: true,
-    activeMarker: {},
     selectedPlace: {},
     likes: '',
-    img: ''
+    img: '',
+    activeMarker: {},
+    showingInfoWindow: true
   };
 
   componentDidMount() {
@@ -26,31 +26,37 @@ class MapContainer extends Component {
   // FourSquare API get Data functions
   getFourSquareData = (lat, lng, name) => {
     const size = 150
-    this.getFourSquareVenueID(lat, lng, name).then((venueId) => {
-      this.getFourSquareVenueInfo(venueId).then((venueInfo) => {
-        this.setState({
-          likes: venueInfo.likes.count,
-          photo: venueInfo.bestPhoto.prefix + size + venueInfo.bestPhoto.suffix
-        });
-      });
-    });
+    this.getFourSquareVenueID(lat, lng, name)
+      .then((venueId) => {
+        this.getFourSquareVenueInfo(venueId)
+          .then((venueInfo) => {
+            this.setState({
+              likes: venueInfo.likes.count,
+              photo: venueInfo.bestPhoto.prefix + size + venueInfo.bestPhoto.suffix
+            });
+          })
+          .catch((e) => console.log('Failed request for venue info, Error:', e));
+      })
+      .catch((e) => console.log('Failed request for venue ID, Error:', e));
   }
 
   getFourSquareVenueID = (lat, lng, name) => {
     return fetch(`https://api.foursquare.com/v2/venues/search?client_id=X4CMVBAJQSVZYXB45ZGE3GNA43RTCMPQTM4PUIKMQHFYWUVX&client_secret=ODC00AI1UEPGLLYLVUOY1JM30NE1XADBZRJMUNXKXPSZKNTR&v=20180323&limit=1&ll=${lat},${lng}&query=${name}`)
+    .catch((e) => console.log('Error: ',e))
     .then((response) => response.json())
-    .then((response) => response.response.venues[0].id);
+    .then((response) => response.response.venues[0].id)
+
   }
 
   getFourSquareVenueInfo = (venueId) => {
     return fetch(`https://api.foursquare.com/v2/venues/${venueId}?client_id=X4CMVBAJQSVZYXB45ZGE3GNA43RTCMPQTM4PUIKMQHFYWUVX&client_secret=ODC00AI1UEPGLLYLVUOY1JM30NE1XADBZRJMUNXKXPSZKNTR&v=20180323`)
+    .catch((e) => console.log('Error: ',e))
     .then((response) => response.json())
-    .then((response) => response.response.venue);
+    .then((response) => response.response.venue)
+    
   }
 
   onMarkerClick = (props, marker) => {
-    console.log('Props:', props);
-    console.log('Marker:', marker);
     this.getFourSquareData(props.position.lat, props.position.lng, props.title);
     this.setState({
       showingInfoWindow: true,
