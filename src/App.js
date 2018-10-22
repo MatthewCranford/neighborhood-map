@@ -61,7 +61,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <MapNav places={this.state.places} onQuery={this.filterPlaces}/>
+        <MapNav places={this.state.currentPlaces} onQuery={this.filterPlaces}/>
         <MapContainer places={this.state.currentPlaces} centerCoords={this.state.places[0].location}/>  
       </div>
     );
