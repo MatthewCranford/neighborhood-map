@@ -8,11 +8,13 @@ class MapContainer extends Component {
     likes: '',
     img: '',
     activeMarker: {},
-    showingInfoWindow: true
+    showingInfoWindow: true,
+    center: {}
   };
 
   componentDidMount() {
     this.setBounds();
+    this.setState({ center: this.props.centerCoords.location})
   }
 
   setBounds = () => {
@@ -21,6 +23,16 @@ class MapContainer extends Component {
       bounds.extend(place.location);
     }
     this.setState({ bounds });
+  }
+
+  
+  onMarkerClick = (props, marker) => {
+    this.getFourSquareData(props.position.lat, props.position.lng, props.title);
+    this.setState({
+      showingInfoWindow: true,
+      activeMarker: marker,
+      selectedPlace: props,
+    });
   }
 
   // FourSquare API get Data functions
@@ -35,34 +47,22 @@ class MapContainer extends Component {
               photo: venueInfo.bestPhoto.prefix + size + venueInfo.bestPhoto.suffix
             });
           })
-          .catch((e) => console.log('Failed request for venue info, Error:', e));
-      })
-      .catch((e) => console.log('Failed request for venue ID, Error:', e));
+          .catch((e) => console.log(e));
+    })
+    .catch((e) => console.log(e));
   }
 
   getFourSquareVenueID = (lat, lng, name) => {
     return fetch(`https://api.foursquare.com/v2/venues/search?client_id=X4CMVBAJQSVZYXB45ZGE3GNA43RTCMPQTM4PUIKMQHFYWUVX&client_secret=ODC00AI1UEPGLLYLVUOY1JM30NE1XADBZRJMUNXKXPSZKNTR&v=20180323&limit=1&ll=${lat},${lng}&query=${name}`)
-    .catch((e) => console.log('Error: ',e))
     .then((response) => response.json())
-    .then((response) => response.response.venues[0].id)
+    .then((response) => response.response.venues[0].id);
 
   }
 
   getFourSquareVenueInfo = (venueId) => {
     return fetch(`https://api.foursquare.com/v2/venues/${venueId}?client_id=X4CMVBAJQSVZYXB45ZGE3GNA43RTCMPQTM4PUIKMQHFYWUVX&client_secret=ODC00AI1UEPGLLYLVUOY1JM30NE1XADBZRJMUNXKXPSZKNTR&v=20180323`)
-    .catch((e) => console.log('Error: ',e))
     .then((response) => response.json())
-    .then((response) => response.response.venue)
-    
-  }
-
-  onMarkerClick = (props, marker) => {
-    this.getFourSquareData(props.position.lat, props.position.lng, props.title);
-    this.setState({
-      showingInfoWindow: true,
-      activeMarker: marker,
-      selectedPlace: props
-    });
+    .then((response) => response.response.venue);
   }
 
   render() {
@@ -77,7 +77,7 @@ class MapContainer extends Component {
           google={this.props.google} 
           zoom={14} 
           style={style} 
-          initialCenter={this.props.centerCoords.location}
+          center={this.state.center}
           bounds={this.state.bounds}
         >
           {this.props.places.map((place, index) => 
@@ -87,6 +87,7 @@ class MapContainer extends Component {
               title={place.name}
               position={{lat: place.location.lat, lng: place.location.lng}}
               onClick={this.onMarkerClick}
+              animation={this.state.activeMarker.name === place.name &&this.props.google.maps.Animation.BOUNCE}
             />
           )}
           <InfoWindow

@@ -54,12 +54,10 @@ class App extends Component {
       this.setState({ currentPlaces: [] });
     }
     const filteredPlaces = this.state.places.filter((place) => place.name.toLowerCase().includes(query.toLowerCase()));  
-    console.log(filteredPlaces);
     this.setState({ currentPlaces: filteredPlaces });
   }
 
   setActiveMarker = (marker) => {
-    console.log(marker);
     document.querySelector(`[title="${marker}"]`).click();
   }
   
