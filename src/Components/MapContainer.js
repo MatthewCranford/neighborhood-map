@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import * as FourSquareAPI from '../APIs/FourSquare'
 
 class MapContainer extends Component {
   state = {
@@ -25,7 +26,6 @@ class MapContainer extends Component {
     this.setState({ bounds });
   }
 
-  
   onMarkerClick = (props, marker) => {
     this.getFourSquareData(props.position.lat, props.position.lng, props.title);
     this.setState({
@@ -35,12 +35,12 @@ class MapContainer extends Component {
     });
   }
 
-  // FourSquare API get Data functions
+  // Fetch FourSquare data
   getFourSquareData = (lat, lng, name) => {
     const size = 150
-    this.getFourSquareVenueID(lat, lng, name)
+    FourSquareAPI.getFourSquareVenueID(lat, lng, name)
       .then((venueId) => {
-        this.getFourSquareVenueInfo(venueId)
+        FourSquareAPI.getFourSquareVenueInfo(venueId)
           .then((venueInfo) => {
             this.setState({
               likes: venueInfo.likes.count,
@@ -52,21 +52,8 @@ class MapContainer extends Component {
     .catch((e) => console.log(e));
   }
 
-  getFourSquareVenueID = (lat, lng, name) => {
-    return fetch(`https://api.foursquare.com/v2/venues/search?client_id=X4CMVBAJQSVZYXB45ZGE3GNA43RTCMPQTM4PUIKMQHFYWUVX&client_secret=ODC00AI1UEPGLLYLVUOY1JM30NE1XADBZRJMUNXKXPSZKNTR&v=20180323&limit=1&ll=${lat},${lng}&query=${name}`)
-    .then((response) => response.json())
-    .then((response) => response.response.venues[0].id);
-
-  }
-
-  getFourSquareVenueInfo = (venueId) => {
-    return fetch(`https://api.foursquare.com/v2/venues/${venueId}?client_id=X4CMVBAJQSVZYXB45ZGE3GNA43RTCMPQTM4PUIKMQHFYWUVX&client_secret=ODC00AI1UEPGLLYLVUOY1JM30NE1XADBZRJMUNXKXPSZKNTR&v=20180323`)
-    .then((response) => response.json())
-    .then((response) => response.response.venue);
-  }
-
   render() {
-    const style = {
+    const mapStyle = {
       width: '100%',
       height: '100%'
     };
@@ -76,7 +63,7 @@ class MapContainer extends Component {
         <Map 
           google={this.props.google} 
           zoom={14} 
-          style={style} 
+          style={mapStyle} 
           center={this.state.center}
           bounds={this.state.bounds}
         >
