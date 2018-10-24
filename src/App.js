@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import MapContainer from './components/MapContainer';
 import MapNav from"./components/MapNav";
+import * as FourSquareAPI from './APIs/FourSquare'
 
 class App extends Component {
   state = {
@@ -11,35 +12,45 @@ class App extends Component {
         location: {
           lat: 34.095169, 
           lng: -118.373918
-        }
+        },
+        img: '',
+        likes: ''
       },
       { 
         name: "Hollywood Improv Comedy Club",
         location: {
           lat: 34.083434, 
           lng: -118.367281
-        }
+        },
+        img: '',
+        likes: ''
       },
       { 
         name: "Laugh Factory",
         location: {
           lat: 34.098247, 
           lng: -118.364478 
-        }
+        },
+        img: '',
+        likes: ''
       },
       { 
         name: "The Groundlings Theatre & School",
         location: {
           lat: 34.083694, 
           lng: -118.348995
-        }
+        },
+        img: '',
+        likes: ''
       },
       { 
         name: "The Second City Hollywood",
         location: {
           lat: 34.101312, 
           lng: -118.333004
-        }
+        },
+        img: '',
+        likes: ''
       }
     ],
     currentPlaces: []
@@ -47,6 +58,37 @@ class App extends Component {
 
   componentDidMount() {
     this.setState({ currentPlaces: this.state.places });
+    this.getFourSquareData()
+  }
+
+  // Fetch FourSquare data
+  getFourSquareData = () => {
+    for (let i = 0; i < this.state.places.length; i++) {
+    
+   
+      let copy = this.state.places[i]
+      copy.img = 'test'
+      console.log('copy', copy)
+
+      this.setState({ places: copy })
+    
+
+   
+      // this.setState({ place.img:  });
+      // const size = 150
+      // FourSquareAPI.getFourSquareVenueID(place.location.lat, place.location.lng, place.name)
+      //   .then((venueId) => {
+      //     FourSquareAPI.getFourSquareVenueInfo(venueId)
+      //       .then((venueInfo) => {
+      //         this.setState({ ...this.state.places[place],
+      //           likes: venueInfo.likes.count,
+      //           photo: venueInfo.bestPhoto.prefix + size + venueInfo.bestPhoto.suffix
+      //         });
+      //       })
+      //       .catch((e) => console.log(e));
+      // })
+      // .catch((e) => console.log(e));
+    }
   }
 
   filterPlaces = (query) => {  
@@ -62,6 +104,7 @@ class App extends Component {
   }
   
   render() {
+    console.log(this.state);
     return (
       <div className="App">
         <MapNav places={this.state.currentPlaces} onQuery={this.filterPlaces} setActiveMarker={this.setActiveMarker}/>

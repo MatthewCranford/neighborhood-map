@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-import * as FourSquareAPI from '../APIs/FourSquare'
+
 
 class MapContainer extends Component {
   state = {
@@ -15,7 +15,7 @@ class MapContainer extends Component {
 
   componentDidMount() {
     this.setBounds();
-    this.setState({ center: this.props.centerCoords.location})
+    this.setState({ center: this.props.centerCoords.location })
   }
 
   setBounds = () => {
@@ -33,23 +33,6 @@ class MapContainer extends Component {
       activeMarker: marker,
       selectedPlace: props,
     });
-  }
-
-  // Fetch FourSquare data
-  getFourSquareData = (lat, lng, name) => {
-    const size = 150
-    FourSquareAPI.getFourSquareVenueID(lat, lng, name)
-      .then((venueId) => {
-        FourSquareAPI.getFourSquareVenueInfo(venueId)
-          .then((venueInfo) => {
-            this.setState({
-              likes: venueInfo.likes.count,
-              photo: venueInfo.bestPhoto.prefix + size + venueInfo.bestPhoto.suffix
-            });
-          })
-          .catch((e) => console.log(e));
-    })
-    .catch((e) => console.log(e));
   }
 
   render() {
