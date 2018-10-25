@@ -27,7 +27,6 @@ class MapContainer extends Component {
   }
 
   onMarkerClick = (props, marker) => {
-    this.getFourSquareData(props.position.lat, props.position.lng, props.title);
     this.setState({
       showingInfoWindow: true,
       activeMarker: marker,

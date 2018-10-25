@@ -57,40 +57,29 @@ class App extends Component {
   };
 
   componentDidMount() {
+    this.getFourSquareData();
     this.setState({ currentPlaces: this.state.places });
-    this.getFourSquareData()
   }
 
   // Fetch FourSquare data
   getFourSquareData = () => {
-    for (let i = 0; i < this.state.places.length; i++) {
-    
-   
-      let copy = this.state.places[i]
-      copy.img = 'test'
-      console.log('copy', copy)
-
-      this.setState({ places: copy })
-    
-
-   
-      // this.setState({ place.img:  });
-      // const size = 150
-      // FourSquareAPI.getFourSquareVenueID(place.location.lat, place.location.lng, place.name)
-      //   .then((venueId) => {
-      //     FourSquareAPI.getFourSquareVenueInfo(venueId)
-      //       .then((venueInfo) => {
-      //         this.setState({ ...this.state.places[place],
-      //           likes: venueInfo.likes.count,
-      //           photo: venueInfo.bestPhoto.prefix + size + venueInfo.bestPhoto.suffix
-      //         });
-      //       })
-      //       .catch((e) => console.log(e));
-      // })
-      // .catch((e) => console.log(e));
-    }
+    const newPlaces = this.state.places.map((place) => {
+      const size = 150
+      FourSquareAPI.getFourSquareVenueID(place.location.lat, place.location.lng, place.name)
+        .then((venueId) => {
+          FourSquareAPI.getFourSquareVenueInfo(venueId)
+            .then((venueInfo) => {
+              place.likes = venueInfo.likes.count
+              place.img = venueInfo.bestPhoto.prefix + size + venueInfo.bestPhoto.suffix
+            })
+            .catch((e) => console.log(e));
+        })
+        .catch((e) => console.log(e));
+      return place;
+    });
+    this.setState({ places: newPlaces })
   }
-
+   
   filterPlaces = (query) => {  
     if (!query) {
       this.setState({ currentPlaces: [] });
@@ -104,7 +93,6 @@ class App extends Component {
   }
   
   render() {
-    console.log(this.state);
     return (
       <div className="App">
         <MapNav places={this.state.currentPlaces} onQuery={this.filterPlaces} setActiveMarker={this.setActiveMarker}/>
