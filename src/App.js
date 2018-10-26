@@ -78,7 +78,8 @@ class App extends Component {
     });
     this.setState({ currentPlaces: newPlaces });
   }
-   
+  
+  // Filter a new array of current places based on user query
   filterPlaces = (query) => {  
     if (!query) {
       this.setState({ currentPlaces: [] });
@@ -87,6 +88,7 @@ class App extends Component {
     this.setState({ currentPlaces: filteredPlaces });
   }
 
+  // Set active marker when clicking list item
   setActiveMarker = (marker) => {
     document.querySelector(`[title="${marker}"]`).click();
   }

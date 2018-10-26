@@ -7,6 +7,7 @@ class MapNav extends Component {
     query: ''
   }
 
+  // Toggle sidebar
   onHamburgerClick = () => {
     const sidebar = document.querySelector('.map-sidebar');
     if (this.state.hamburgerActive) {
@@ -24,11 +25,11 @@ class MapNav extends Component {
       <div>
         <div className="map-nav-container">
           <nav className="map-nav">
-            <div className="hamburger-container" onClick={this.onHamburgerClick}> 
+            <button tabIndex='0' className="hamburger-container" onClick={this.onHamburgerClick}> 
               <div className="hamburger-bar"></div>
               <div className="hamburger-bar"></div>
               <div className="hamburger-bar"></div>
-            </div>
+            </button>
             <h1 className="nav-title">Popular Comedy Clubs</h1>
           </nav>
         </div>
@@ -36,7 +37,7 @@ class MapNav extends Component {
             <input className="sidebar-input" onChange={(e) => this.props.onQuery(e.target.value)}></input>
             <ul>
               {this.props.places.map((place, index) => {
-                return <li key={index} onClick={() => this.props.setActiveMarker(place.name)}>{place.name}</li>
+                return <li tabIndex='0' key={index} onClick={() => this.props.setActiveMarker(place.name)}>{place.name}</li>
               })}
             </ul>
           </div>
