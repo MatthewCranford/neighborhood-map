@@ -31,10 +31,9 @@ class MapNav extends Component {
               <div className="hamburger-bar"></div>
             </button>
             <div className="nav-title">
-              <h1 >Popular Comedy Clubs</h1>
+              <h1>Popular Comedy Clubs</h1>
               <h4>Powered by FourSquare</h4>
             </div>
-            
           </nav>
         </div>
         <div className="map-sidebar">
@@ -48,7 +47,6 @@ class MapNav extends Component {
             </ul>
           </div>
       </div>
-        
     )
   }
 }
