@@ -58,10 +58,9 @@ class App extends Component {
 
   componentDidMount() {
     this.getFourSquareData();
-    this.setState({ currentPlaces: this.state.places });
   }
 
-  // Fetch FourSquare data
+  // Fetch FourSquare data from API
   getFourSquareData = () => {
     const newPlaces = this.state.places.map((place) => {
       const size = 150
@@ -77,7 +76,7 @@ class App extends Component {
         .catch((e) => console.log(e));
       return place;
     });
-    this.setState({ places: newPlaces })
+    this.setState({ currentPlaces: newPlaces });
   }
    
   filterPlaces = (query) => {  

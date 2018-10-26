@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 
-
 class MapContainer extends Component {
   state = {
     bounds: {},
@@ -27,10 +26,11 @@ class MapContainer extends Component {
   }
 
   onMarkerClick = (props, marker) => {
+    const place = this.props.places.filter((place) => place.name === props.title)
     this.setState({
       showingInfoWindow: true,
       activeMarker: marker,
-      selectedPlace: props,
+      selectedPlace: place[0],
     });
   }
 
@@ -65,8 +65,8 @@ class MapContainer extends Component {
           >
             <div>
               <h1>{this.state.selectedPlace.name}</h1>
-              <img src={this.state.photo} alt={this.state.selectedPlace.name}/>
-              <h3>Likes: {this.state.likes}</h3>
+              <img src={this.state.selectedPlace.img} alt={this.state.selectedPlace.name}/>
+              <h3>Likes: {this.state.selectedPlace.likes}</h3>
             </div>
           </InfoWindow>
         </Map>
