@@ -32,6 +32,7 @@ A new browser window should automatically open displaying the app.  If it doesn'
 * [React Training/React Router](https://reacttraining.com/react-router/web/api/BrowserRouter)
 * [React API](https://facebook.github.io/react/docs/react-api.html)
 * [Google Map React Component Tutorial](https://www.npmjs.com/package/google-maps-react)
+* [FourSquare API Documentation](https://developer.foursquare.com/docs)
 
 ### Udacity Resources:
 * [Project Rubric](https://review.udacity.com/#!/rubrics/1351/view)
