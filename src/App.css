@@ -24,6 +24,14 @@
   margin: auto;
 }
 
+.nav-title h1 {
+  margin: 0;
+}
+
+.nav-title h4 {
+  margin: 0;
+}
+
 
 /* Hamburger from W3 schools */
 
