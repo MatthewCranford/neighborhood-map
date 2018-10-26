@@ -25,7 +25,7 @@ class MapNav extends Component {
       <div>
         <div className="map-nav-container">
           <nav className="map-nav">
-            <button tabIndex='0' className="hamburger-container" onClick={this.onHamburgerClick}> 
+            <button aria-label='Hamburger Menu' tabIndex='0' className="hamburger-container" onClick={this.onHamburgerClick}> 
               <div className="hamburger-bar"></div>
               <div className="hamburger-bar"></div>
               <div className="hamburger-bar"></div>
@@ -37,11 +37,11 @@ class MapNav extends Component {
           </nav>
         </div>
         <div className="map-sidebar">
-            <input className="sidebar-input" onChange={(e) => this.props.onQuery(e.target.value)}></input>
+            <input aria-label='Search Filter' className="sidebar-input" onChange={(e) => this.props.onQuery(e.target.value)}></input>
             <ul>
               {this.props.places.map((place, index) => {
-                return <li  key={index}>
-                  <button tabIndex='0' onClick={() => this.props.setActiveMarker(place.name)}>{place.name}</button>
+                return <li key={index}>
+                  <button aria-label='Place Location' tabIndex='0' onClick={() => this.props.setActiveMarker(place.name)}>{place.name}</button>
                 </li>
               })}
             </ul>
