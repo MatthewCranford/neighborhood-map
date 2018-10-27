@@ -26,6 +26,9 @@ A new browser window should automatically open displaying the app.  If it doesn'
 * Clicking on markers will toggle an info window, displaying information on location
 * Toggling the nav bar via hamburger will open a filterable list of comedy stores
 
+## Offline Mode
+* Resources cached using Create React App's default service worker functions. Available in production mode only.
+
 ### Resources and Documentation:
 * [Create-react-app Documentation](https://github.com/facebookincubator/create-react-app)
 * [React Router Documentation](http://knowbody.github.io/react-router-docs/)
