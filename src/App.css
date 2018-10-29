@@ -73,15 +73,12 @@
   padding: 0;
 }
 
-.map-sidebar button {
+.map-sidebar li {
   padding: 1rem;
   cursor: pointer;
-  width: 100%;    
-  background-color: white;
-  border: 0px;
 }
 
-.map-sidebar button:hover {
+.map-sidebar li:hover {
   background-color: black;
   color: white;
 }

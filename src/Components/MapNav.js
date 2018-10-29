@@ -40,8 +40,12 @@ class MapNav extends Component {
             <input aria-label='Search Filter' className="sidebar-input" onChange={(e) => this.props.onQuery(e.target.value)}></input>
             <ul>
               {this.props.places.map((place, index) => {
-                return <li key={index}>
-                  <button aria-label='Place Location' tabIndex='0' onClick={() => this.props.setActiveMarker(place.name)}>{place.name}</button>
+                return <li 
+                tabIndex='0' 
+                role='button' 
+                aria-label='Place Location' 
+                key={index} 
+                onClick={() => this.props.setActiveMarker(place.name)}>{place.name}
                 </li>
               })}
             </ul>
