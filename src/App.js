@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import MapContainer from './Components/MapContainer';
 import MapNav from"./Components/MapNav";
-import * as FourSquareAPI from './APIs/FourSquare'
+import * as FourSquareAPI from './APIs/FourSquare';
 
 class App extends Component {
   state = {
@@ -92,7 +92,7 @@ class App extends Component {
   setActiveMarker = (marker) => {
     document.querySelector(`[title="${marker}"]`).click();
   }
-  
+
   render() {
     return (
       <div className="App">

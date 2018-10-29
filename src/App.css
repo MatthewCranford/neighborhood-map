@@ -86,7 +86,11 @@
   color: white;
 }
 
+/* ErrorScreen */
 
+.error-screen-message {
+  text-align: center;
+}
 
 
 
